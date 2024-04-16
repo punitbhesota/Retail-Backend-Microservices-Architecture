@@ -15,7 +15,7 @@ app.get("/notifications",async(req,res)=>{
     try {        
         let data = await axios.get(getUsers);
         let user_data = data.data
-        return res.json({user_data})
+        return res.json({message:"Getting Data from /users API (user-service)",user_data})
     } catch (error) {
         console.log(error)
     }
