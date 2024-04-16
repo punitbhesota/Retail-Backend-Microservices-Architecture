@@ -1,18 +1,16 @@
 FROM --platform=linux/amd64 node:18-alpine
 # FROM node:17.8.0-bullseye-slim
 
-#########################################################################
-# BOOTSTRAP
-#########################################################################
-COPY . .
-RUN npm i
+# Copy your application code
+COPY package*.json ./
+RUN npm install
 
 #########################################################################
 # SERVICE SETUP
 #########################################################################
-WORKDIR /services/api-service
-COPY db-migrations ./migrations
+WORKDIR /services/migration-service
+COPY /services/migration-service/db-migrations ./migrations
 # Start the service
-CMD ["npm", "run", "docker"]
+CMD ["npm", "run", "dev"]
 
-EXPOSE 8080
+EXPOSE 8081
