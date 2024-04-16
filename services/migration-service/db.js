@@ -1,10 +1,8 @@
-// import { createClient, testConnection } from '@instacoach/ic-db-utils/dist/client.js';
-// import { runMigrations } from '@instacoach/ic-db-utils/dist/migrate.js';
 import knex from 'knex';
 
-export let knexClient;
+let knexClient;
 
-export function createClient(
+function createClient(
     dbUser,
     dbPass,
     dbHost,
@@ -29,7 +27,7 @@ export function createClient(
     });
 }
 
-export async function testConnection() {
+async function testConnection() {
     try {
         await knexClient.raw('SELECT 1;');
         console.log('Database: connection established successfully');
@@ -39,7 +37,7 @@ export async function testConnection() {
     }
 }
 
-export async function runMigrations() {
+async function runMigrations() {
     console.log('Database: executing migrations...');
     await knexClient.migrate.latest();
     console.log('Database: migrations complete');
@@ -48,7 +46,7 @@ export async function runMigrations() {
 
 export async function initDb() {
     try {
-        // Create the knex client and connection pool.
+    // Create the knex client and connection pool.
     const MIGRATIONS_FOLDER = './db-migrations';
     console.log('HERE', MIGRATIONS_FOLDER)
     createClient('root', 'root', 'localhost', '8888', 'microservice_poc_db', './db-migrations');
