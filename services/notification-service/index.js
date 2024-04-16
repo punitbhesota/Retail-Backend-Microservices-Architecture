@@ -13,7 +13,7 @@ let getUsers = `${user_service}/users`
 
 app.get("/notifications",async(req,res)=>{
     try {        
-        let data = await axios.get('http://localhost:4100/users');
+        let data = await axios.get(getUsers);
         let user_data = data.data
         return res.json({user_data})
     } catch (error) {
