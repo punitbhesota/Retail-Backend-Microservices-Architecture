@@ -1,5 +1,50 @@
-import { createClient, testConnection } from '@instacoach/ic-db-utils/dist/client.js';
-import { runMigrations } from '@instacoach/ic-db-utils/dist/migrate.js';
+// import { createClient, testConnection } from '@instacoach/ic-db-utils/dist/client.js';
+// import { runMigrations } from '@instacoach/ic-db-utils/dist/migrate.js';
+import knex from 'knex';
+
+export let knexClient;
+
+export function createClient(
+    dbUser,
+    dbPass,
+    dbHost,
+    dbPort,
+    dbName,
+    migrationsDirectory
+){
+    const conn = `postgres://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}`;
+    knexClient = knex({
+        client: 'pg',
+        debug: false,
+        connection: conn,
+        acquireConnectionTimeout: 60000,
+        migrations: {
+            directory: migrationsDirectory || './migrations',
+        },
+        pool: {
+            min: 0,
+            max: 30,
+            acquireTimeoutMillis: 60000,
+        }
+    });
+}
+
+export async function testConnection() {
+    try {
+        await knexClient.raw('SELECT 1;');
+        console.log('Database: connection established successfully');
+    } catch (err) {
+        console.log('Database: connection failed');
+        throw err;
+    }
+}
+
+export async function runMigrations() {
+    console.log('Database: executing migrations...');
+    await knexClient.migrate.latest();
+    console.log('Database: migrations complete');
+}
+
 
 export async function initDb() {
     try {
@@ -15,6 +60,5 @@ export async function initDb() {
     await runMigrations();
     } catch (error) {
         console.log(error)
-    }
-    
+    }  
 }
