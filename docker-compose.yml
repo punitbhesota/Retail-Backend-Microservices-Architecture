@@ -1,0 +1,11 @@
+version: '3'
+services:
+  poc_db_service:
+    container_name: poc_db_service
+    build: ./docker-config/poc-db-service
+    image: poc_db_service
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    ports:
+      - '8888:5432'
