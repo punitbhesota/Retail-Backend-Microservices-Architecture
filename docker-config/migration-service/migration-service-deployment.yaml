@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: migration-service
+spec:
+  replicas: 2 # Deploy two replicas
+  selector:
+    matchLabels:
+      app: migration-service
+  template:
+    metadata:
+      labels:
+        app: migration-service
+    spec:
+      containers:
+        - name: migration-service
+          image: migration_service:latest
+          ports:
+            - containerPort: 8081
