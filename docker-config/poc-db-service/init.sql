@@ -1,3 +1,0 @@
--- NOTE: CURRENT_USER is the $DB_USER
-CREATE DATABASE microservice_poc_db;
-GRANT ALL PRIVILEGES ON DATABASE microservice_poc_db TO CURRENT_USER;
