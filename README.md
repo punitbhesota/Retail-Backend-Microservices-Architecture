@@ -39,4 +39,7 @@ To scale the database, the Database per Service pattern is used. Each microservi
 - Possible Latency in Inter-Service Communication
 - Need for Sophisticated Deployment and Monitoring Tools
 
-This document describes the robust backend of a retail shopping application, utilizing a microservice architecture executed in Node.js. For more details on each service and component, refer to the respective sections above.
+This document describes the robust backend of a retail shopping application, utilizing a microservice architecture executed in Node.js. For more details on each service and component, refer to the respective sections above. 
+
+## Important Note
+Configuration: Ensure to update the MongoDB and RabbitMQ connection strings in the .env.dev file before initiating the services.
